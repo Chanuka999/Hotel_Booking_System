@@ -48,7 +48,7 @@ body{
     background-color: var(--main-color);
 }
 section{
-    padding: 3rem 0;
+    padding: 3rem 2rem;
     max-width: 1200px;
     margin: 0 auto;
 }
@@ -63,6 +63,7 @@ section{
    text-align: center;
    text-transform: capitalize;
    transition: 0.2s linear;
+   margin-top: 1rem;
 }
 
 .btn:hover{
@@ -87,4 +88,103 @@ section{
     cursor: pointer;
     color: var(--sub-color);
     display: none;
+}
+
+.header .navbar{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    gap: 1.5rem;
+    margin-top: 2rem;
+    background-color: var(--sub-color);
+    padding: 0.5rem 2rem;
+    border-radius: 0.5rem;
+}
+
+.header .navbar a{
+    font-size: 1.8rem;
+    color: var(--main-color);
+    padding: 1rem 3rem;
+    border-radius: 0.5rem;
+}
+
+.header .navbar a:hover{
+    background-color: var(--main-color);
+    color: var(--sub-color);
+}
+
+.home .box img{
+    border-radius: 0.5rem;
+    height: 70vh;
+    width: 100%;
+    object-fit: cover;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@media (max-width:991px){
+    html{
+        font-size: 55%;
+    }
+
+    .header .flex .fa-bars{
+        display: inline-block;
+    }
+
+    .header .flex .btn{
+        display: none;
+    }
+    .header  .navbar{
+        flex-flow: column;
+        padding: 2rem;
+        display: none;
+    }
+    .header .navbar.active{
+        display: flex;
+    }
+}
+
+@media (max-width:768px){
+    
+    
+}
+
+@media (max-width:450px){
+    html{
+        font-size: 50%;
+    }
+
+    .header .flex .logo{
+        font-size: 2rem;
+    }
 }
