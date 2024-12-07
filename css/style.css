@@ -120,7 +120,14 @@ section{
     object-fit: cover;
     margin-bottom: 1rem;
 }
-
+.home .box .flex{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    margin-top: 2rem;
+}
 
 
 
