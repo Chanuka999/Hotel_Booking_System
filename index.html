@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
     <link rel="stylesheet" href="css/style.css">
 
@@ -27,9 +28,9 @@
     </section>
 
     <section class="home" id="home">
-        <div class="home-slider">
-            <div>
-                <div class="box">
+        <div class="swiper home-slider">
+            <div class="swiper-wrapper">
+                <div class="box swiper-slide">
                     <img src="images/home-img-1.jpg" alt="">
                     <div class="flex">
                         <h3>luxurious rooms</h3>
@@ -38,7 +39,7 @@
                     
                 </div>
 
-                <div class="box">
+                <div class="box swiper-slide">
                     <img src="images/home-img-2.jpg" alt="">
                   <div class="flex">
                     <h3>foods and drinks </h3>
@@ -46,7 +47,7 @@
                   </div>
                 </div>
 
-                <div class="box">
+                <div class="box swiper-slide">
                     <img src="images/home-img-3.jpg" alt="">
                    <div class="flex">
                     <h3>luxurious halls</h3>
@@ -54,9 +55,13 @@
                    </div>
                 </div>
             </div>
+            <div class="swiper-button-next"></div>
+           <div class="swiper-button-prev"></div>
         </div>
     </section>
 
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="js/index.js"></script>
 </body>
 </html>
