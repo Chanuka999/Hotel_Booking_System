@@ -239,6 +239,65 @@
         </div>
       </div>
     </section>
+
+    <section class="reservation" id="reservation">
+      <form action="" method="POST">
+        <h3>make a reservation</h3>
+        <div class="flex">
+          <div class="box">
+            <p>check in<span>*</span></p>
+            <input type="date" name="check_in" class="input" required />
+          </div>
+          <div class="box">
+            <p>check out<span>*</span></p>
+            <input type="date" name="check_id" class="input" required />
+          </div>
+          <div class="box">
+            <p>adults<span>*</span></p>
+            <select name="adults" class="input" required>
+              <option value="-">0 adults</option>
+              <option value="1">1 adults</option>
+              <option value="2">2 adults</option>
+              <option value="3">3 adults</option>
+              <option value="4">4 adults</option>
+              <option value="5">5 adults</option>
+              <option value="6">6 adults</option>
+            </select>
+          </div>
+          <div class="box">
+            <p>adults<span>*</span></p>
+            <select name="child" class="input" required>
+              <option value="-">0 child</option>
+              <option value="1">1 child</option>
+              <option value="2">2 child</option>
+              <option value="3">3 child</option>
+              <option value="4">4 child</option>
+              <option value="5">5 child</option>
+              <option value="6">6 child</option>
+            </select>
+          </div>
+          <div class="box">
+            <p>rooms<span>*</span></p>
+            <select name="room" class="input" required>
+              <option value="-">0 room</option>
+              <option value="1">1 room</option>
+              <option value="2">2 room</option>
+              <option value="3">3 room</option>
+              <option value="4">4 room</option>
+              <option value="5">5 room</option>
+              <option value="6">6 room</option>
+            </select>
+          </div>
+        </div>
+        <input
+          type="submit"
+          value="check availability"
+          name="check"
+          class="btn"
+        />
+      </form>
+    </section>
+
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="js/index.js"></script>
   </body>
