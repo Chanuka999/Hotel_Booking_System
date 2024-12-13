@@ -8,10 +8,17 @@ window.onscroll = () => {
   navbar.classList.remove("active");
 };
 
+document.querySelectorAll(".contact .row .faq .box h3").forEach((faqBox) => {
+  faqBox.onclick = () => {
+    faqBox.parentElement.classList.toggle("active");
+  };
+});
+
 var swiper = new Swiper(".home-slider", {
   loop: true,
   effect: "coverflow",
   grabCursor: true,
+  spaceBetween: 20,
   coverflowEffect: {
     rotate: 50,
     stretch: 0,
@@ -30,7 +37,7 @@ var swiper = new Swiper(".gallery-slider", {
   effect: "coverflow",
   slidesPerView: "auto",
   centeredSlides: true,
-  grabCursor: true,
+  spaceBetween: 20,
   coverflowEffect: {
     rotate: 0,
     stretch: 0,
@@ -40,5 +47,23 @@ var swiper = new Swiper(".gallery-slider", {
   },
   pagination: {
     el: ".swiper-pagination",
+  },
+});
+
+var swiper = new Swiper(".reviews-slider", {
+  loop: true,
+  slidesPerView: "auto",
+  grabCursor: true,
+  spaceBetween: 30,
+  pagination: {
+    el: ".swiper-pagination",
+  },
+  breakpoints: {
+    768: {
+      slidesPerView: 4,
+    },
+    991: {
+      slidesPerView: 2,
+    },
   },
 });
