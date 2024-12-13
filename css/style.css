@@ -401,11 +401,85 @@ section {
 }
 
 .contact .row .faq .box p {
-  padding: 2rem;
+  padding: 1.5rem 2rem;
   line-height: 2;
   font-size: 1.6rem;
   color: var(--sub-color);
   display: none;
+}
+
+.contact .row .faq .box.active p {
+  display: inline-block;
+}
+
+.reviews {
+  padding-top: 0;
+}
+
+.reviews .box {
+  text-align: center;
+  user-select: none;
+  padding: 2rem;
+  margin-bottom: 4rem;
+}
+
+.reviews .box img {
+  height: 7rem;
+  width: 7rem;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 0.5rem;
+}
+
+.reviews .box h3 {
+  margin: 1rem 0;
+  font-size: 2rem;
+  color: var(--sub-color);
+}
+
+.reviews .box p {
+  line-height: 2;
+  font-size: 1.7rem;
+  color: var(--sub-color);
+}
+
+.footer .box-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
+  gap: 1.5rem;
+  justify-content: center;
+  align-items: flex-start;
+  padding-bottom: 2rem;
+}
+
+.footer .box-container .box a {
+  display: block;
+  font-size: 1.8rem;
+  color: var(--sub-color);
+  padding: 1rem 0;
+}
+
+.footer .box-container .box a:hover {
+  color: var(--white);
+}
+.footer .box-container .box:first-child i {
+  margin-right: 1.7rem;
+}
+
+.footer .box-container .box:nth-child(2) {
+  text-align: center;
+}
+
+.footer .box-container .box:last-child {
+  margin-left: 1.7rem;
+}
+
+.footer .credit {
+  border-radius: 0.5rem;
+  padding: 2rem;
+  text-align: center;
+  color: var(--main-color);
+  font-size: 2rem;
 }
 
 @media (max-width: 991px) {
