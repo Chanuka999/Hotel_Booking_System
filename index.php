@@ -15,19 +15,76 @@ if(isset($_POST["check"])){
 
   $total_rooms=0;
 
-  $check_bookings = $conn->prepare("SELECT * FROM `bookings` WHERE check_in=?");
+  $check_bookings = $conn->prepare("SELECT rooms FROM `bookings` WHERE check_in=?");
 
-  $check_bookings->execute([$check_in]);
+  $check_bookings->bind_param("s",$check_in);
+  $check_bookings->execute();
 
-  while($fetch_bookings = $check_bookings->fetch(PDO::FETCH_ASSOC)){
-    $total_rooms+=$fetch_bookings['rooms'];
-  }
+  $check_bookings->bind_result($rooms);
+
+
+ while($check_bookings->fetch()){
+  $total_rooms += $rooms;
+ }
+
+ $check_bookings->close();
 
   if($total_rooms >=30){
     $warnning_msg[] = 'rooms are not available';
   }else{
     $success_msg[] = 'rooms are available';
   }
+}
+
+if(isset($_POST["book"])){
+  $book_id = create_unique_id();
+  $name = $_POST["name"];
+  $name = filter_var($name, FILTER_SANITIZE_STRING);
+  $email = $_POST["email"];
+  $email = filter_var($email, FILTER_SANITIZE_STRING);
+  $number = $_POST["number"];
+  $number = filter_var($number, FILTER_SANITIZE_STRING);
+  $rooms = $_POST["rooms"];
+  $rooms = filter_var($rooms, FILTER_SANITIZE_STRING);
+  $check_in = $_POST["check_in"];
+  $check_in = filter_var($check_in, FILTER_SANITIZE_STRING);
+
+  $total_rooms=0;
+
+  $check_bookings = $conn->prepare("SELECT rooms FROM `bookings` WHERE check_in=?");
+
+  $check_bookings->bind_param("s",$check_in);
+  $check_bookings->execute();
+
+  $check_bookings->bind_result($rooms);
+
+
+ while($check_bookings->fetch()){
+  $total_rooms += $rooms;
+ }
+
+ $check_bookings->close();
+
+  if($total_rooms >=30){
+    $warnning_msg[] = 'rooms are not available';
+  }else{
+    $verify_bookings = $conn->prepare("SELECT * FROM `bookings` WHERE
+    user_id =? AND name = ? AND email = ? AND number = ? 
+    AND rooms = ? AND check_in =? AND check_out =? AND adults =? AND child=?");
+   
+   if($verify_bookings->num_rows()>0){
+    $warnning_msg[] = 'room booked already!';
+   }else{
+    $book_room = $conn->prepare("INSERT INTO `bookings`(booking_id,user_id,
+    name,email,number,rooms,check_in,check_out,adults,child)
+    VALUES(?,?,?,?,?,?,?,?,?,?)");
+    $book_room->execute([$booking_id,$user_id,$name,$email,$number,$rooms,
+    $check_in,$check_out,$adults,$childs]);
+    $success_msg = 'room added successfully';
+
+   }
+  }
+
 }
 ?>
 
@@ -277,13 +334,37 @@ if(isset($_POST["check"])){
       <form action="" method="POST">
         <h3>make a reservation</h3>
         <div class="flex">
+        <div class="box">
+            <p>name<span>*</span></p>
+            <input type="text" name="name" class="input" required />
+          </div>
+          <div class="box">
+            <p>E mail<span>*</span></p>
+            <input type="text" name="email" class="input" required />
+          </div>
+          <div class="box">
+            <p>number<span>*</span></p>
+            <input type="text" name="number" class="input" required />
+          </div>
+          <div class="box">
+            <p>rooms<span>*</span></p>
+            <select name="rooms" class="input" required>
+              <option value="-">0 room</option>
+              <option value="1">1 room</option>
+              <option value="2">2 room</option>
+              <option value="3">3 room</option>
+              <option value="4">4 room</option>
+              <option value="5">5 room</option>
+              <option value="6">6 room</option>
+            </select>
+          </div>
           <div class="box">
             <p>check in<span>*</span></p>
             <input type="date" name="check_in" class="input" required />
           </div>
           <div class="box">
             <p>check out<span>*</span></p>
-            <input type="date" name="check_id" class="input" required />
+            <input type="date" name="check_out" class="input" required />
           </div>
           <div class="box">
             <p>adults<span>*</span></p>
@@ -298,7 +379,7 @@ if(isset($_POST["check"])){
             </select>
           </div>
           <div class="box">
-            <p>adults<span>*</span></p>
+            <p>child<span>*</span></p>
             <select name="child" class="input" required>
               <option value="-">0 child</option>
               <option value="1">1 child</option>
@@ -309,23 +390,12 @@ if(isset($_POST["check"])){
               <option value="6">6 child</option>
             </select>
           </div>
-          <div class="box">
-            <p>rooms<span>*</span></p>
-            <select name="room" class="input" required>
-              <option value="-">0 room</option>
-              <option value="1">1 room</option>
-              <option value="2">2 room</option>
-              <option value="3">3 room</option>
-              <option value="4">4 room</option>
-              <option value="5">5 room</option>
-              <option value="6">6 room</option>
-            </select>
-          </div>
+       
         </div>
         <input
           type="submit"
           value="check availability"
-          name="check"
+          name="book"
           class="btn"
         />
       </form>
