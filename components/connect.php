@@ -5,10 +5,10 @@ $username = "root";
 $password = "";
 $dbName = "hotel_db";
 
-$conn = mysqli_connect($server_name,$username,$password,$dbName);
+$conn =new mysqli($server_name,$username,$password,$dbName);
 
-if(!$conn){
-  die("connection failed" . mysqli_connect_error());
+if($conn->connect_error){
+  die("connection failed" . $conn->connect_error());
 }
 
 function create_unique_id(){
