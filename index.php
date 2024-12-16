@@ -48,7 +48,12 @@ if(isset($_POST["book"])){
   $rooms = filter_var($rooms, FILTER_SANITIZE_STRING);
   $check_in = $_POST["check_in"];
   $check_in = filter_var($check_in, FILTER_SANITIZE_STRING);
-
+  $check_out = $_POST["check_out"];
+  $check_out = filter_var($check_out, FILTER_SANITIZE_STRING);
+  $adults = $_POST["adults"];
+  $adults = filter_var($adults, FILTER_SANITIZE_STRING);
+  $child = $_POST["child"];
+  $child = filter_var($child, FILTER_SANITIZE_STRING);
   $total_rooms=0;
 
   $check_bookings = $conn->prepare("SELECT rooms FROM `bookings` WHERE check_in=?");
@@ -78,13 +83,39 @@ if(isset($_POST["book"])){
     $book_room = $conn->prepare("INSERT INTO `bookings`(booking_id,user_id,
     name,email,number,rooms,check_in,check_out,adults,child)
     VALUES(?,?,?,?,?,?,?,?,?,?)");
-    $book_room->execute([$booking_id,$user_id,$name,$email,$number,$rooms,
-    $check_in,$check_out,$adults,$childs]);
+    $book_room->execute([$book_id,$user_id,$name,$email,$number,$rooms,
+    $check_in,$check_out,$adults,$child]);
     $success_msg = 'room added successfully';
 
    }
   }
 
+}
+
+if(isset($_POST["send"])){
+  $id = create_unique_id();
+  $name = $_POST["name"];
+  $name = filter_var($name, FILTER_SANITIZE_STRING);
+  $email = $_POST["email"];
+  $email = filter_var($email, FILTER_SANITIZE_STRING);
+  $password = $_POST["password"];
+  $password = filter_var($password, FILTER_SANITIZE_STRING);
+  $message = $_POST["message"];
+  $message = filter_var($name, FILTER_SANITIZE_STRING);
+
+  $verify_mssage = $conn->prepare("SELECT * FROM  `messages` WHERE name=? AND email= ?, AND number = ?, Add message = ? ");
+
+  $verify_mssage->execute([$name,$email,$number,$message]);
+
+  if($verify_mssage->num_rows() > 0){
+    $warnning_msg[] = 'message sent already';
+  }else{
+    $insert_message = $conn->prepare("INSERT INTO `messages` (id,mame,email,number,message)
+    VALUES(?,?,?,?,?.?)");
+    $insert_message->execute([$id,$name,$email,$number,$message]);
+    $success_msg[] = 'massage and successfully';
+  }
+ 
 }
 ?>
 
@@ -105,22 +136,7 @@ if(isset($_POST["book"])){
     <link rel="stylesheet" href="css/style.css" />
   </head>
   <body>
-    <section class="header">
-      <div class="flex">
-        <a href="#home" class="logo">Hotels and resturants</a>
-        <a href="#availability" class="btn">check availability</a>
-        <div id="menu-btn" class="fas fa-bars"></div>
-      </div>
-
-      <nav class="navbar">
-        <a href="#home">home</a>
-        <a href="#about">about</a>
-        <a href="#reservation">reservation</a>
-        <a href="#gallery">gallery</a>
-        <a href="#contact">contact</a>
-        <a href="#reviews">reviews</a>
-      </nav>
-    </section>
+   <?php include "./components/user_header.php"; ?>
 
     <section class="home" id="home">
       <div class="swiper home-slider">
@@ -554,38 +570,7 @@ if(isset($_POST["book"])){
       </div>
     </section>
 
-    <section class="footer">
-      <div class="box-container">
-        <div class="box">
-          <a href="tel-123456789"><i class="fs fa-phone"></i>+123-456-7890</a>
-          <a href="tel-111222333"><i class="fs fa-phone"></i>+111-222-3333</a>
-          <a href="mailt0:chanuka@gmail.com"
-            ><i class="fs fa-envelope"></i>chanuka@gmail.com</a
-          >
-          <a href="#"><i class="fs fa-map-marker"></i>Sri lanka</a>
-        </div>
-
-        <div class="box">
-          <a href="#home">home</a>
-          <a href="#about">about</a>
-          <a href="#reservation">reservation</a>
-          <a href="#gallery">gallery</a>
-          <a href="#contact">contact</a>
-          <a href="#reviews">reviews</a>
-        </div>
-
-        <div class="box">
-          <a href="#">facebook<i class="fab fa-facebook"></i></a>
-          <a href="#">twitter<i class="fab fa-twitter"></i></a>
-          <a href="#">instagram<i class="fab fa-instagram"></i></a>
-          <a href="#">linkdin<i class="fab fa-linkdin"></i></a>
-        </div>
-      </div>
-
-      <div class="credit">
-        &copy; copyright @ 2024 CHANUKA RANDITHA | all right reserved!
-      </div>
-    </section>
+   <?phpinclude "./components/footer.php"; ?>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
     <script src="js/index.js"></script>
